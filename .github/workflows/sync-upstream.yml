@@ -1,0 +1,45 @@
+name: "Sync upstream daily"
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # daily at 00:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/ivanaitzliddat/real-assets-personality-quiz.git || true
+          git fetch upstream --tags
+
+      - name: Determine default branch
+        id: defbranch
+        run: |
+          DEFAULT_BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          echo "default_branch=$DEFAULT_BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Merge upstream into default branch
+        env:
+          DEFAULT_BRANCH: ${{ steps.defbranch.outputs.default_branch }}
+        run: |
+          echo "Default branch: $DEFAULT_BRANCH"
+          git checkout "$DEFAULT_BRANCH"
+          # Merge upstream changes; this will create a merge commit if necessary.
+          git merge --no-edit "upstream/$DEFAULT_BRANCH"
+
+      - name: Push merged changes back to origin
+        run: |
+          git push origin "$DEFAULT_BRANCH"
