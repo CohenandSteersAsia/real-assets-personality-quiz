@@ -68,7 +68,11 @@ export function LandingPage() {
         </section>
         <section className="scarcity-section" aria-labelledby="scarcity-title">
           <h2 id="scarcity-title">{siteContent.landing.scarcityTitle}</h2>
-          <p className="scarcity-lede">{siteContent.landing.scarcityBody}</p>
+          <div className="scarcity-lede">
+            {siteContent.landing.scarcityBody.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
         </section>
       </main>
     </div>

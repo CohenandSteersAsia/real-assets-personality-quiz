@@ -450,6 +450,16 @@
     font-size: 1.05rem;
     line-height: 1.75;
   }
+  .scarcity-lede p {
+    margin: 0;
+  }
+  .scarcity-lede p + p {
+    margin-top: 1rem;
+  }
+  .scarcity-lede p:last-child {
+    color: var(--blue);
+    font-weight: 700;
+  }
   .quiz-shell {
     width: min(1020px, calc(100% - 2.5rem));
     margin: auto;

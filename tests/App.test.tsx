@@ -78,11 +78,9 @@ describe("quiz experience", () => {
       "landing-title__emphasis",
     );
     expect(screen.getByText(/^6 questions$/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value. Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns. There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
-      ),
-    ).toBeInTheDocument();
+    for (const paragraph of siteContent.landing.scarcityBody) {
+      expect(screen.getByText(paragraph)).toBeInTheDocument();
+    }
     expect(
       screen.getByRole("heading", {
         level: 2,

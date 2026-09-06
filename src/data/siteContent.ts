@@ -9,8 +9,11 @@ export const siteContent = {
     introduction:
       "Explore four distinct real asset pillars. Which one will be your match?",
     scarcityTitle: "Real Assets: Built For What's Next",
-    scarcityBody:
-      "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value. Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns. There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
+    scarcityBody: [
+      "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value.",
+      "Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns.",
+      "There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
+    ],
     duration: "6 questions",
     cta: "Find my REAL personality",
     disclaimer:
