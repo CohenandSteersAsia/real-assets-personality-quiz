@@ -26,7 +26,7 @@ export const questions: QuizQuestion[] = [
       ),
       a(
         "holiday-real-estate",
-        "Picking the tried-and-tested favourites, while making sure there’s something new enough to keep things interesting.",
+        "Choosing places to stay and visit that suit what everyone enjoys.",
         "real-estate",
       ),
       a(
@@ -47,7 +47,7 @@ export const questions: QuizQuestion[] = [
       ),
       a(
         "project-real-estate",
-        "Taking something that already works well and helping it stay useful and relevant for years to come.",
+        "Finding ways to make a place more appealing to the people who use it.",
         "real-estate",
       ),
       a(
@@ -63,38 +63,12 @@ export const questions: QuizQuestion[] = [
     ],
   },
   {
-    id: "important-decision",
-    question: "When making an important decision, what matters most?",
-    answers: [
-      a(
-        "decision-commodities",
-        "What are conditions telling me right now?",
-        "commodities",
-      ),
-      a(
-        "decision-infrastructure",
-        "Can I depend on it to do what it’s supposed to do?",
-        "infrastructure",
-      ),
-      a(
-        "decision-natural-resources",
-        "Do we have what we need to make this work?",
-        "natural-resources",
-      ),
-      a(
-        "decision-real-estate",
-        "Will this still make sense when people’s needs change?",
-        "real-estate",
-      ),
-    ],
-  },
-  {
     id: "plans-fall-apart",
     question: "Your plans suddenly fall apart. What happens next?",
     answers: [
       a(
         "plans-real-estate",
-        "Keep the parts that are still working and change what no longer fits.",
+        "Find a different place that still gives everyone what they need.",
         "real-estate",
       ),
       a(
@@ -125,7 +99,7 @@ export const questions: QuizQuestion[] = [
       ),
       a(
         "compliment-real-estate",
-        "“You always seem to know what will still matter years from now.”",
+        "“You have a knack for seeing what makes a place special.”",
         "real-estate",
       ),
       a(
@@ -156,7 +130,7 @@ export const questions: QuizQuestion[] = [
       ),
       a(
         "superpower-real-estate",
-        "Know which trends will fade and which ones will become part of everyday life.",
+        "See exactly what any place needs to bring out its potential.",
         "real-estate",
       ),
       a(
@@ -167,38 +141,12 @@ export const questions: QuizQuestion[] = [
     ],
   },
   {
-    id: "headline",
-    question: "Which headline are you most likely to click?",
-    answers: [
-      a(
-        "headline-infrastructure",
-        "The essential systems quietly keeping the world running",
-        "infrastructure",
-      ),
-      a(
-        "headline-natural-resources",
-        "Who actually supplies the energy, metals and food the world depends on?",
-        "natural-resources",
-      ),
-      a(
-        "headline-commodities",
-        "Why the price of everyday raw materials can change so quickly",
-        "commodities",
-      ),
-      a(
-        "headline-real-estate",
-        "Why some things stay relevant while others get left behind",
-        "real-estate",
-      ),
-    ],
-  },
-  {
     id: "final-statement",
     question: "Finally, which statement feels most like you?",
     answers: [
       a(
         "statement-real-estate",
-        "I like things that continue to deliver and know how to stay relevant.",
+        "I see the potential in places and how they can work better for people.",
         "real-estate",
         2,
       ),

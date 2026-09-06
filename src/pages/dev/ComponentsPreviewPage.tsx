@@ -18,7 +18,7 @@ export function ComponentsPreviewPage() {
         <h1>Component gallery</h1>
         <section className="dev-section">
           <h2>Progress</h2>
-          <Progress current={3} total={8} />
+          <Progress current={3} total={questions.length} />
         </section>
         <section className="dev-section">
           <h2>Answer cards</h2>

@@ -2,7 +2,7 @@
 
 Each answer supplies `scores: Partial<Record<AssetClass, number>>`. The scoring engine sums those values, optionally multiplied by the question's `weight`. It has no knowledge of answer position or marketing copy.
 
-For this prototype, questions 1–7 give one point to the answer's primary class; question 8 gives two points through its data score. This is content configuration, not an engine rule.
+For this prototype, questions 1–5 give one point to the answer's primary class; question 6 gives two points through its data score. This is content configuration, not an engine rule.
 
 Tie-breaking is isolated in `src/lib/tieBreaker.ts`:
 

@@ -12,7 +12,7 @@
 
 ## Manual/browser
 
-- Start on landing, complete all eight questions, see primary/secondary results, share/copy, and retake.
+- Start on landing, complete all six questions, see one branded result card, and retake.
 - Previous preserves selections; changing one changes eventual scoring.
 - Keyboard-only operation has visible focus and logical order.
 - 320, 375, 390, 430, 768, and 1024+ widths have no horizontal overflow.

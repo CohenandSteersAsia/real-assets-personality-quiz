@@ -1,14 +1,19 @@
+// PROVISIONAL COPY: final marketing/compliance signoff pending.
 export const siteContent = {
   brandLabel: "Cohen & Steers",
   landing: {
+    titleEmphasis: "REAL",
+    visualCaption: "Four personalities. One REAL you.",
+    scarcityEyebrow: "Real assets. Real life.",
     eyebrow: "A real assets personality quiz",
-    title: "What’s Your Real Assets Personality?",
-    introduction: "From real estate to commodities, which real asset are you?",
+    title: "What’s your REAL assets personality?",
+    introduction:
+      "Discover a different side of yourself through the real assets that shape our world.",
     scarcityTitle: "Four ways to meet a changing world",
     scarcityBody:
-      "[PLACEHOLDER] The physical things economies depend upon are increasingly important at a time when many are becoming harder to build, replace or supply.",
-    duration: "8 questions · About 3 minutes",
-    cta: "Start the quiz",
+      "Real assets connect to the places, essential networks and raw materials people use every day—from buildings and utilities to energy, metals and agriculture.",
+    duration: "6 questions",
+    cta: "Find my REAL personality",
     disclaimer:
       "A light-hearted way to learn about real assets—not an investment assessment.",
   },

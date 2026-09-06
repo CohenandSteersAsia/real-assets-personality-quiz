@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { questions as quizQuestions } from "../src/data/questions";
+import { ASSET_CLASSES } from "../src/types/quiz";
 import { calculateQuizResult, sumScores } from "../src/lib/scoring";
 import { resolveTie } from "../src/lib/tieBreaker";
 import type { AnswersByQuestion, QuizQuestion } from "../src/types/quiz";
@@ -14,6 +16,61 @@ const question = (
     text: answerId,
     scores,
   })),
+});
+
+describe("approved question-bank scoring regression", () => {
+  it("keeps one point per choice and double weight only on the final statement", () => {
+    expect(quizQuestions).toHaveLength(6);
+    expect(quizQuestions.at(-1)?.id).toBe("final-statement");
+    quizQuestions.forEach((question, index) => {
+      expect(question.weight ?? 1).toBe(1);
+      expect(
+        question.answers
+          .map(({ primaryAssetClass }) => primaryAssetClass)
+          .sort(),
+      ).toEqual([...ASSET_CLASSES].sort());
+      question.answers.forEach((answer) => {
+        expect(answer.scores).toEqual({
+          [answer.primaryAssetClass!]: index === 5 ? 2 : 1,
+        });
+      });
+    });
+  });
+
+  it("reaches each primary equally across all 4096 equally likely answer paths", () => {
+    const winners = {
+      "real-estate": 0,
+      infrastructure: 0,
+      commodities: 0,
+      "natural-resources": 0,
+    };
+    let paths = 0;
+    const walk = (index: number, answers: AnswersByQuestion) => {
+      if (index === quizQuestions.length) {
+        const result = calculateQuizResult(quizQuestions, answers);
+        winners[result.primary] += 1;
+        paths += 1;
+        expect(
+          Object.values(result.scores).reduce((sum, score) => sum + score, 0),
+        ).toBe(7);
+        expect(result.secondary).not.toBe(result.primary);
+        expect(calculateQuizResult(quizQuestions, answers)).toEqual(result);
+        return;
+      }
+      const question = quizQuestions[index];
+      question.answers.forEach((answer) =>
+        walk(index + 1, { ...answers, [question.id]: answer.id }),
+      );
+    };
+    walk(0, {});
+    expect(paths).toBe(4096);
+    expect(winners).toEqual({
+      "real-estate": 1024,
+      infrastructure: 1024,
+      commodities: 1024,
+      "natural-resources": 1024,
+    });
+  });
 });
 
 describe("sumScores", () => {

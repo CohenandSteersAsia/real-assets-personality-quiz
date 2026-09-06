@@ -6,7 +6,7 @@ A responsive, static React personality quiz that introduces four real-asset arch
 
 ## Status
 
-The initial end-to-end prototype includes the landing experience, eight configurable questions, weighted deterministic scoring, primary and secondary results, all four result designs, sharing with copy fallback, development previews, tests, and GitHub Pages deployment automation. Names, descriptions, educational copy, artwork, CTAs, and the tie methodology remain provisional.
+The refreshed end-to-end experience includes the branded landing page, six configurable questions, weighted deterministic scoring, four screenshot-ready result designs, development previews, tests, and GitHub Pages deployment automation. Names, descriptions, educational copy, artwork, CTAs, and the tie methodology remain provisional.
 
 ## Local setup
 
@@ -88,7 +88,7 @@ Development preview routes are omitted from production routing. Public result UR
 
 ## Scoring
 
-The engine sums whatever score values exist in selected answers, multiplied by optional question weights. Questions 1–7 currently award one point and question 8 awards two points directly in its answer data. No scoring rule depends on answer order or copy.
+The engine sums whatever score values exist in selected answers, multiplied by optional question weights. Questions 1–5 currently award one point and question 6 awards two points directly in its answer data. No scoring rule depends on answer order or copy.
 
 The provisional tie logic is documented in `docs/SCORING.md` and isolated in `src/lib/tieBreaker.ts`: final-question preference among tied leaders, then primary-selection counts, then a stable technical order. Percentages are not calculated or displayed.
 
