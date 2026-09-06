@@ -4,14 +4,13 @@ export const siteContent = {
   landing: {
     titleEmphasis: "REAL",
     visualCaption: "Four personalities. One REAL you.",
-    scarcityEyebrow: "Real assets. Real life.",
     eyebrow: "A real assets personality quiz",
     title: "What’s your REAL assets personality?",
     introduction:
-      "Discover a different side of yourself through the real assets that shape our world.",
-    scarcityTitle: "Four ways to meet a changing world",
+      "Explore four distinct real asset pillars. Which one will be your match?",
+    scarcityTitle: "Real Assets: Built For What's Next",
     scarcityBody:
-      "Real assets connect to the places, essential networks and raw materials people use every day—from buildings and utilities to energy, metals and agriculture.",
+      "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value. Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns. There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
     duration: "6 questions",
     cta: "Find my REAL personality",
     disclaimer:

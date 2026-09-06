@@ -13,8 +13,8 @@ export const personalities: Record<AssetClass, PersonalityContent> = {
     longDescription:
       "You have a feel for what people need from the places around them. You spot potential, appreciate what already works, and see how thoughtful changes can make somewhere even better. For you, lasting appeal comes from staying connected to how people live.",
     educationalContent: {
-      title: "Why this connects with Listed Real Estate",
-      body: "Listed REITs and property companies own and operate income-producing properties that serve how people live, work, shop, travel, store goods, consume data and age. They can also acquire, redevelop or develop properties as needs change.",
+      title: "About Listed Real Estate",
+      body: "Listed real estate consists of shares in publicly traded real estate investment trusts (REITs) and other real estate companies that own, operate or develop properties, including residential, retail, office, industrial and specialized real estate such as data centres and cell towers.",
     },
     artwork: {
       hero: "placeholders/real-estate.svg",
@@ -33,8 +33,8 @@ export const personalities: Record<AssetClass, PersonalityContent> = {
     longDescription:
       "Dependable, organised and steady, you naturally notice how the pieces connect. You find satisfaction in making sure people can rely on what matters every day.",
     educationalContent: {
-      title: "Why this connects with Listed Infrastructure",
-      body: "Listed infrastructure businesses own and operate the essential systems society relies on every day, such as utilities, energy transport, communications towers and transport networks. Their revenues are often tied to regulated or contracted use of these long-lived assets.",
+      title: "About Listed Infrastructure",
+      body: "Listed infrastructure consists of shares in publicly traded companies that own or operate essential networks and facilities, including utilities, transport, energy pipelines and communications infrastructure. These businesses often earn regulated or contracted revenues.",
     },
     artwork: {
       hero: "placeholders/infrastructure.svg",
@@ -52,8 +52,8 @@ export const personalities: Record<AssetClass, PersonalityContent> = {
     longDescription:
       "Alert and flexible, you are comfortable responding as circumstances evolve. You pay attention to what conditions are telling you and do not cling to a plan after the world has changed.",
     educationalContent: {
-      title: "Why this connects with Commodities",
-      body: "Commodities are physical raw materials such as energy, metals and agricultural goods. Investment exposure can be accessed through liquid market instruments such as futures, rather than shares in resource-producing companies. Prices respond to changing supply and demand.",
+      title: "About Commodities",
+      body: "Commodities are physical raw materials—such as energy, metals, agricultural products and livestock—whose prices are driven by global supply and demand. Investment exposure is typically obtained through liquid futures contracts rather than shares of companies.",
     },
     artwork: {
       hero: "placeholders/commodities.svg",
@@ -72,8 +72,8 @@ export const personalities: Record<AssetClass, PersonalityContent> = {
     longDescription:
       "Practical and productive, you take stock of the resources at hand and work out how to deliver something useful. You are less interested in perfect conditions than in making progress with what is real.",
     educationalContent: {
-      title: "Why this connects with Natural Resource Equities",
-      body: "Natural resource equities are shares in listed companies that produce and process resources such as energy, metals and agricultural goods. Unlike the raw commodities themselves, these are operating businesses whose results depend on production, demand and how well they run their assets.",
+      title: "About Natural Resource Equities",
+      body: "Natural resource equities are shares in publicly traded companies involved in the production or processing of raw materials, including energy, metals, mining and agriculture. Returns reflect both commodity prices and company-specific factors.",
     },
     artwork: {
       hero: "placeholders/natural-resources.svg",

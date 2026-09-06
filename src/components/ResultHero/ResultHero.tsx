@@ -26,6 +26,7 @@ export function ResultHero({
       <div className="result-hero__copy">
         <p className="eyebrow">{siteContent.result.reveal}</p>
         <h1>{personality.personalityName}</h1>
+        <p className="result-asset">{personality.assetClassName}</p>
         <p className="result-tagline">{personality.tagline}</p>
       </div>
       <div className="result-artwork">
@@ -39,7 +40,15 @@ export function ResultHero({
       <div className="result-card__details">
         <p className="result-description">{personality.shortDescription}</p>
         <PersonalityTraits traits={personality.traits} />
-        <p className="result-asset">{personality.assetClassName}</p>
+        <section
+          className="result-education"
+          aria-labelledby={`${personality.id}-education-title`}
+        >
+          <h2 id={`${personality.id}-education-title`}>
+            {personality.educationalContent.title}
+          </h2>
+          <p>{personality.educationalContent.body}</p>
+        </section>
       </div>
     </article>
   );

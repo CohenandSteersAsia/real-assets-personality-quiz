@@ -37,14 +37,19 @@ describe("quiz experience", () => {
       expect(
         within(card).getByRole("img", { name: "Cohen & Steers" }),
       ).toBeInTheDocument();
-      expect(within(card).getByRole("heading", { level: 1 })).toHaveTextContent(
+      const resultHeading = within(card).getByRole("heading", { level: 1 });
+      expect(resultHeading).toHaveTextContent(
         personalities[id].personalityName,
       );
+      expect(resultHeading.nextElementSibling).toHaveTextContent(
+        personalities[id].assetClassName,
+      );
+      expect(resultHeading.nextElementSibling).not.toHaveTextContent(/[()]/);
       expect(
         within(card).getByText(personalities[id].tagline),
       ).toBeInTheDocument();
       expect(
-        within(card).getByText(personalities[id].assetClassName),
+        within(card).getByText(personalities[id].educationalContent.body),
       ).toBeInTheDocument();
       for (const trait of personalities[id].traits) {
         expect(within(card).getByText(trait)).toBeInTheDocument();
@@ -73,6 +78,20 @@ describe("quiz experience", () => {
       "landing-title__emphasis",
     );
     expect(screen.getByText(/^6 questions$/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value. Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns. There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Real Assets: Built For What's Next",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(siteContent.landing.disclaimer),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/\[PLACEHOLDER\]/)).not.toBeInTheDocument();
   });
 

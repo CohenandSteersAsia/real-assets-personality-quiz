@@ -422,14 +422,17 @@
   }
   .scarcity-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "title lede";
+    column-gap: clamp(3rem, 7vw, 7rem);
+    row-gap: 0.75rem;
     align-items: start;
     padding: clamp(3rem, 5vw, 4.5rem) max(1.25rem, calc((100vw - 1168px) / 2));
     background: var(--surface);
     border-top: 1px solid var(--line);
   }
   .scarcity-section h2 {
+    grid-area: title;
     max-width: 480px;
     margin-bottom: 0;
     color: var(--blue);
@@ -440,6 +443,7 @@
     letter-spacing: -0.035em;
   }
   .scarcity-lede {
+    grid-area: lede;
     max-width: 510px;
     margin: 0.35rem 0 0;
     color: var(--muted);
@@ -551,14 +555,40 @@
     line-height: 1.6;
     text-wrap: pretty;
   }
-  .result-asset {
-    margin: 1.2rem 0 0;
-    padding-top: 0.85rem;
+  .result-education {
+    max-width: 760px;
+    margin-top: 1.25rem;
+    padding-top: 1.15rem;
     border-top: 1px solid var(--line);
+  }
+  .result-education h2 {
+    margin: 0 0 0.45rem;
     color: var(--blue);
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .result-education p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .result-asset {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0.8rem 0 0;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-left: 3px solid var(--bright-blue);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
   }
   .retake {
@@ -687,6 +717,9 @@
     }
     .scarcity-section {
       grid-template-columns: 1fr;
+      grid-template-areas:
+        "title"
+        "lede";
       gap: 1.25rem;
     }
     .answers {
@@ -770,9 +803,9 @@
       padding: 0.3rem 0.5rem;
     }
     .result-asset {
-      margin-top: 0.8rem;
-      padding-top: 0.65rem;
-      font-size: 0.7rem;
+      margin-top: 0.6rem;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.74rem;
     }
     .dev-result-grid {
       grid-template-columns: 1fr;

@@ -9,14 +9,14 @@ describe("content integrity", () => {
     expect(siteContent.landing).toMatchObject({
       title: "What’s your REAL assets personality?",
       introduction:
-        "Discover a different side of yourself through the real assets that shape our world.",
+        "Explore four distinct real asset pillars. Which one will be your match?",
       cta: "Find my REAL personality",
       duration: "6 questions",
       titleEmphasis: "REAL",
       visualCaption: "Four personalities. One REAL you.",
-      scarcityEyebrow: "Real assets. Real life.",
+      scarcityTitle: "Real Assets: Built For What's Next",
       scarcityBody:
-        "Real assets connect to the places, essential networks and raw materials people use every day—from buildings and utilities to energy, metals and agriculture.",
+        "Real assets are the structures, networks and raw materials that facilitate economic growth. They are physical assets and are priced based on their intrinsic value. Real assets are known for their potential to outperform during inflationary periods, their distinct performance from stocks and bonds, and historically strong total returns. There are four core real asset pillars: Real Estate, Infrastructure, Natural Resources & Commodities.",
     });
   });
 
@@ -83,18 +83,14 @@ describe("content integrity", () => {
     expect(personalities["real-estate"].shortDescription).toBe(
       "You see the potential in places and the people who use them.",
     );
-    expect(personalities["real-estate"].educationalContent.body).toContain(
-      "Listed REITs and property companies",
-    );
-    expect(personalities["real-estate"].educationalContent.body).toContain(
-      "own and operate income-producing properties",
-    );
-    expect(personalities.commodities.educationalContent.body).toContain(
-      "liquid market instruments",
-    );
-    expect(personalities.commodities.educationalContent.body).toContain(
-      "rather than shares in resource-producing companies",
-    );
+    expect(
+      ASSET_CLASSES.map((id) => personalities[id].educationalContent.body),
+    ).toEqual([
+      "Listed real estate consists of shares in publicly traded real estate investment trusts (REITs) and other real estate companies that own, operate or develop properties, including residential, retail, office, industrial and specialized real estate such as data centres and cell towers.",
+      "Listed infrastructure consists of shares in publicly traded companies that own or operate essential networks and facilities, including utilities, transport, energy pipelines and communications infrastructure. These businesses often earn regulated or contracted revenues.",
+      "Commodities are physical raw materials—such as energy, metals, agricultural products and livestock—whose prices are driven by global supply and demand. Investment exposure is typically obtained through liquid futures contracts rather than shares of companies.",
+      "Natural resource equities are shares in publicly traded companies involved in the production or processing of raw materials, including energy, metals, mining and agriculture. Returns reflect both commodity prices and company-specific factors.",
+    ]);
     expect(
       Object.values(personalities).map(({ artwork }) => artwork.alt),
     ).toEqual([

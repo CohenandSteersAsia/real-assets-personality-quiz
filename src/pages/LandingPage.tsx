@@ -46,7 +46,6 @@ export function LandingPage() {
               </button>
               <span>{siteContent.landing.duration}</span>
             </div>
-            <p className="landing-note">{siteContent.landing.disclaimer}</p>
           </div>
           <div className="landing-visual" aria-hidden="true">
             <div className="personality-mosaic">
@@ -68,7 +67,6 @@ export function LandingPage() {
           </div>
         </section>
         <section className="scarcity-section" aria-labelledby="scarcity-title">
-          <p className="eyebrow">{siteContent.landing.scarcityEyebrow}</p>
           <h2 id="scarcity-title">{siteContent.landing.scarcityTitle}</h2>
           <p className="scarcity-lede">{siteContent.landing.scarcityBody}</p>
         </section>
