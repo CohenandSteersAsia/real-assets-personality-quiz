@@ -177,7 +177,8 @@ describe("quiz experience", () => {
         }),
       );
     }
-    expect(screen.getByRole("article")).toBeInTheDocument();
+    // Revealing waits for the entry to save, so the result renders asynchronously.
+    expect(await screen.findByRole("article")).toBeInTheDocument();
     expect(screen.getByText(siteContent.result.eyebrow)).toBeInTheDocument();
     expect(screen.queryByText(/also in your mix/i)).not.toBeInTheDocument();
     await user.click(
