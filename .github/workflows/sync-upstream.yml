@@ -58,10 +58,12 @@ jobs:
           fi
 
       # Pushes made with GITHUB_TOKEN do not trigger other workflows, so start
-      # the Pages deployment explicitly.
+      # the Pages deployment explicitly. GH_REPO stops gh from targeting the
+      # "upstream" remote added above.
       - name: Deploy synced changes
         if: steps.push.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           DEFAULT_BRANCH: ${{ steps.defbranch.outputs.default_branch }}
         run: gh workflow run deploy.yml --ref "$DEFAULT_BRANCH"
