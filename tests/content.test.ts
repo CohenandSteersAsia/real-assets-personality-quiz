@@ -43,14 +43,14 @@ describe("content integrity", () => {
     questions.forEach((question) => expect(question.answers).toHaveLength(4));
   });
 
-  it("connects every real-estate answer to people and places", () => {
+  it("keeps the approved real-estate answer copy", () => {
     const expected = [
-      "Choosing places to stay and visit that suit what everyone enjoys.",
-      "Finding ways to make a place more appealing to the people who use it.",
-      "Find a different place that still gives everyone what they need.",
+      "Choose places that suit everyone in the group.",
+      "Finding ways to make things more attractive and engaging.",
+      "Finding a different alternative that still gives everyone what they need.",
       "“You have a knack for seeing what makes a place special.”",
-      "See exactly what any place needs to bring out its potential.",
-      "I see the potential in places and how they can work better for people.",
+      "Transform any place into its best possible version.",
+      "I see what things could become, not just what they are.",
     ];
     expect(
       questions.map(

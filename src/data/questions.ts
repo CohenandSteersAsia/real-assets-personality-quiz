@@ -16,59 +16,59 @@ export const questions: QuizQuestion[] = [
     answers: [
       a(
         "holiday-infrastructure",
-        "Sorting out flights, transport and bookings and making sure everything connects.",
+        "Plan the itinerary for a smooth trip.",
         "infrastructure",
       ),
       a(
         "holiday-commodities",
-        "Keeping the itinerary flexible because plans can change once you’re there.",
+        "Keep the itinerary flexible for changes.",
         "commodities",
       ),
       a(
         "holiday-real-estate",
-        "Choosing places to stay and visit that suit what everyone enjoys.",
+        "Choose places that suit everyone in the group.",
         "real-estate",
       ),
       a(
         "holiday-natural-resources",
-        "Making sure the group has what it needs and figuring out the rest along the way.",
+        "Set the basics and figure out the rest along the way.",
         "natural-resources",
       ),
     ],
   },
   {
     id: "satisfying-project",
-    question: "Which project sounds the most satisfying?",
+    question: "Which project sounds most like your kind of challenge?",
     answers: [
       a(
         "project-natural-resources",
-        "Making the most of limited resources to produce something people genuinely need.",
+        "Creating useful solutions with available resources.",
         "natural-resources",
       ),
       a(
         "project-real-estate",
-        "Finding ways to make a place more appealing to the people who use it.",
+        "Finding ways to make things more attractive and engaging.",
         "real-estate",
       ),
       a(
         "project-infrastructure",
-        "Running something people rely on every day and making sure it never misses a beat.",
+        "Making sure everything runs as it should.",
         "infrastructure",
       ),
       a(
         "project-commodities",
-        "Working in an environment where circumstances constantly change and you need to respond quickly.",
+        "Thriving in a fast-paced environment and adapting quickly to succeed.",
         "commodities",
       ),
     ],
   },
   {
     id: "plans-fall-apart",
-    question: "Your plans suddenly fall apart. What happens next?",
+    question: "Oh no! Your plans suddenly fall apart, how do you respond?",
     answers: [
       a(
         "plans-real-estate",
-        "Find a different place that still gives everyone what they need.",
+        "Finding a different alternative that still gives everyone what they need.",
         "real-estate",
       ),
       a(
@@ -76,14 +76,10 @@ export const questions: QuizQuestion[] = [
         "Take stock of what’s available and figure out how to make it work.",
         "natural-resources",
       ),
-      a(
-        "plans-commodities",
-        "New situation, new plan — adjust and move on.",
-        "commodities",
-      ),
+      a("plans-commodities", "New situation, new plan.", "commodities"),
       a(
         "plans-infrastructure",
-        "Work through the problem systematically until everything is back on track.",
+        "Solve the problem systematically until everything is back on track.",
         "infrastructure",
       ),
     ],
@@ -120,51 +116,51 @@ export const questions: QuizQuestion[] = [
     answers: [
       a(
         "superpower-natural-resources",
-        "Turn whatever resources are available into exactly what’s needed.",
+        "Turn anything into exactly what’s needed.",
         "natural-resources",
       ),
       a(
         "superpower-infrastructure",
-        "Make any system work perfectly just by touching it.",
+        "Make any system work perfectly with a touch.",
         "infrastructure",
       ),
       a(
         "superpower-real-estate",
-        "See exactly what any place needs to bring out its potential.",
+        "Transform any place into its best possible version.",
         "real-estate",
       ),
       a(
         "superpower-commodities",
-        "Sense whenever conditions around you are about to change.",
+        "Sense changes in your surroundings before they happen.",
         "commodities",
       ),
     ],
   },
   {
     id: "final-statement",
-    question: "Finally, which statement feels most like you?",
+    question: "Finally, which one would you pick as your personal motto?",
     answers: [
       a(
         "statement-real-estate",
-        "I see the potential in places and how they can work better for people.",
+        "I see what things could become, not just what they are.",
         "real-estate",
         2,
       ),
       a(
         "statement-commodities",
-        "When circumstances change, I change with them.",
+        "When circumstances change, I adapt.",
         "commodities",
         2,
       ),
       a(
         "statement-natural-resources",
-        "Give me what we’ve got, and I’ll find a way to make it work.",
+        "Give me what we have, and I’ll make it work.",
         "natural-resources",
         2,
       ),
       a(
         "statement-infrastructure",
-        "The things people depend on should simply work.",
+        "I believe reliability is the foundation of everything.",
         "infrastructure",
         2,
       ),
