@@ -5,6 +5,10 @@ on:
     - cron: "0 0 * * *" # daily at 00:00 UTC
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -41,5 +45,23 @@ jobs:
           git merge --no-edit "upstream/$DEFAULT_BRANCH"
 
       - name: Push merged changes back to origin
+        id: push
+        env:
+          DEFAULT_BRANCH: ${{ steps.defbranch.outputs.default_branch }}
         run: |
-          git push origin "$DEFAULT_BRANCH"
+          if [ "$(git rev-parse HEAD)" = "$(git rev-parse "origin/$DEFAULT_BRANCH")" ]; then
+            echo "Already up to date with upstream."
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git push origin "$DEFAULT_BRANCH"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      # Pushes made with GITHUB_TOKEN do not trigger other workflows, so start
+      # the Pages deployment explicitly.
+      - name: Deploy synced changes
+        if: steps.push.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ steps.defbranch.outputs.default_branch }}
+        run: gh workflow run deploy.yml --ref "$DEFAULT_BRANCH"
