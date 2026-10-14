@@ -1,17 +1,56 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../src/App";
 import { personalities } from "../src/data/personalities";
+import { privacyNotice } from "../src/data/privacyNotice";
 import { questions } from "../src/data/questions";
 import { siteContent } from "../src/data/siteContent";
+import { calculateQuizResult } from "../src/lib/scoring";
 import { ASSET_CLASSES } from "../src/types/quiz";
 
-const startQuiz = async (user: ReturnType<typeof userEvent.setup>) => {
+type User = ReturnType<typeof userEvent.setup>;
+
+const fillDetails = async (user: User) => {
+  await user.type(screen.getByLabelText(privacyNotice.fields.name), "Alex Tan");
+  await user.type(
+    screen.getByLabelText(privacyNotice.fields.company),
+    "Example Pte Ltd",
+  );
+  await user.type(
+    screen.getByLabelText(privacyNotice.fields.email),
+    "alex@example.com",
+  );
+  await user.click(
+    screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
+  );
+  await user.click(screen.getByRole("button", { name: privacyNotice.submit }));
+};
+
+const startQuiz = async (user: User) => {
   await user.click(
     screen.getByRole("button", { name: siteContent.landing.cta }),
   );
+  await fillDetails(user);
 };
+
+const answerAllWithFirstOption = async (user: User) => {
+  for (let index = 0; index < questions.length; index += 1) {
+    await user.click(screen.getAllByRole("radio")[0]);
+    if (index < questions.length - 1) {
+      await user.click(
+        screen.getByRole("button", { name: siteContent.quiz.next }),
+      );
+    }
+  }
+};
+
+const firstOptionResult = calculateQuizResult(
+  questions,
+  Object.fromEntries(
+    questions.map((question) => [question.id, question.answers[0].id]),
+  ),
+);
 
 describe("quiz experience", () => {
   beforeEach(() => {
@@ -153,5 +192,151 @@ describe("quiz experience", () => {
     expect(
       screen.getByRole("button", { name: siteContent.quiz.next }),
     ).toBeDisabled();
+  });
+});
+
+describe("participant details", () => {
+  beforeEach(() => {
+    window.location.hash = "#/";
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  const stubDatabase = (...statuses: number[]) => {
+    vi.stubEnv("VITE_SUPABASE_URL", "https://project.supabase.co");
+    vi.stubEnv("VITE_SUPABASE_PUBLISHABLE_KEY", "sb_publishable_test");
+    const fetchMock = vi.fn(
+      async (_url: string, _init: RequestInit) =>
+        new Response(null, { status: statuses.shift() ?? 201 }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    return fetchMock;
+  };
+
+  it("asks for details and shows the personal data notice before the quiz", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(
+      screen.getByRole("button", { name: siteContent.landing.cta }),
+    );
+    expect(
+      screen.getByRole("heading", { name: privacyNotice.heading }),
+    ).toBeInTheDocument();
+    for (const paragraph of privacyNotice.noticeBody) {
+      expect(screen.getByText(paragraph)).toBeInTheDocument();
+    }
+    expect(
+      screen.getByRole("checkbox", { name: privacyNotice.marketingOptIn }),
+    ).not.toBeChecked();
+    expect(screen.queryByRole("radio")).not.toBeInTheDocument();
+  });
+
+  it("sends visitors without details from the quiz to the details form", () => {
+    window.location.hash = "#/quiz";
+    render(<App />);
+    expect(
+      screen.getByRole("heading", { name: privacyNotice.heading }),
+    ).toBeInTheDocument();
+  });
+
+  it("explains what is missing and stays on the form", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(
+      screen.getByRole("button", { name: siteContent.landing.cta }),
+    );
+    await user.type(
+      screen.getByLabelText(privacyNotice.fields.email),
+      "not-an-email",
+    );
+    await user.click(
+      screen.getByRole("button", { name: privacyNotice.submit }),
+    );
+
+    const name = screen.getByLabelText(privacyNotice.fields.name);
+    expect(name).toHaveAttribute("aria-invalid", "true");
+    expect(name).toHaveFocus();
+    expect(name).toHaveAccessibleDescription(privacyNotice.errors.required);
+    expect(
+      screen.getByLabelText(privacyNotice.fields.email),
+    ).toHaveAccessibleDescription(privacyNotice.errors["invalid-email"]);
+    expect(
+      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
+    ).toHaveAccessibleDescription(privacyNotice.errors["consent-required"]);
+    expect(screen.queryByRole("radio")).not.toBeInTheDocument();
+  });
+
+  it("saves details, consent and result before revealing the result", async () => {
+    const fetchMock = stubDatabase(201);
+    const user = userEvent.setup();
+    render(<App />);
+    await startQuiz(user);
+    await answerAllWithFirstOption(user);
+    await user.click(
+      screen.getByRole("button", { name: siteContent.quiz.reveal }),
+    );
+
+    expect(await screen.findByRole("article")).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("https://project.supabase.co/rest/v1/quiz_submissions");
+    expect(JSON.parse(String(init.body))).toEqual({
+      name: "Alex Tan",
+      company: "Example Pte Ltd",
+      email: "alex@example.com",
+      personal_data_consent: true,
+      marketing_opt_in: false,
+      notice_version: privacyNotice.version,
+      primary_result: firstOptionResult.primary,
+      secondary_result: firstOptionResult.secondary,
+    });
+  });
+
+  it("keeps the visitor on the last question when saving fails and allows a retry", async () => {
+    const fetchMock = stubDatabase(500, 201);
+    const user = userEvent.setup();
+    render(<App />);
+    await startQuiz(user);
+    await answerAllWithFirstOption(user);
+    await user.click(
+      screen.getByRole("button", { name: siteContent.quiz.reveal }),
+    );
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      privacyNotice.saveError,
+    );
+    expect(screen.queryByRole("article")).not.toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("button", { name: siteContent.quiz.reveal }),
+    );
+    expect(await screen.findByRole("article")).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("clears the previous visitor's details on restart", async () => {
+    stubDatabase(201);
+    const user = userEvent.setup();
+    render(<App />);
+    await startQuiz(user);
+    await answerAllWithFirstOption(user);
+    await user.click(
+      screen.getByRole("button", { name: siteContent.quiz.reveal }),
+    );
+    await user.click(
+      await screen.findByRole("button", { name: siteContent.result.restart }),
+    );
+    await user.click(
+      screen.getByRole("button", { name: siteContent.landing.cta }),
+    );
+
+    expect(screen.getByLabelText(privacyNotice.fields.name)).toHaveValue("");
+    expect(screen.getByLabelText(privacyNotice.fields.email)).toHaveValue("");
+    expect(
+      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
+    ).not.toBeChecked();
   });
 });

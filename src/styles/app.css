@@ -61,6 +61,10 @@
     outline: 3px solid var(--focus);
     outline-offset: 5px;
   }
+  input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
   .skip-link {
     position: fixed;
     z-index: 100;
@@ -295,6 +299,64 @@
     font-weight: 700;
     line-height: 1.4;
   }
+  .form-field {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .form-field label {
+    font-weight: 700;
+  }
+  .form-field input {
+    min-height: 52px;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--muted);
+    border-radius: 3px;
+    background: var(--white);
+    color: var(--ink);
+  }
+  .form-field input[aria-invalid="true"],
+  .form-check input[aria-invalid="true"] {
+    border-color: #b42318;
+    outline: 2px solid #b42318;
+    outline-offset: 1px;
+  }
+  .form-check {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: 0.4rem 0.75rem;
+    align-items: start;
+  }
+  .form-check input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0.15rem 0 0;
+    accent-color: var(--blue);
+  }
+  .form-check .form-error {
+    grid-column: 2;
+  }
+  .form-error {
+    margin: 0;
+    color: #b42318;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .form-error::before {
+    content: "! ";
+  }
+  .privacy-notice {
+    padding: 1.25rem;
+    border-left: 4px solid var(--bright-blue);
+    background: var(--tint);
+    font-size: 0.9rem;
+  }
+  .privacy-notice h2 {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .privacy-notice p {
+    margin-bottom: 0.6rem;
+  }
   .disclaimer {
     margin-top: 2rem;
     padding: 1.25rem 0;
@@ -464,6 +526,34 @@
     width: min(1020px, calc(100% - 2.5rem));
     margin: auto;
     padding: clamp(2rem, 5vw, 4rem) 0 2rem;
+  }
+  .details-shell {
+    width: min(640px, calc(100% - 2.5rem));
+    margin: auto;
+    padding: clamp(2rem, 5vw, 4rem) 0 3rem;
+  }
+  .details-title {
+    margin-bottom: 0.75rem;
+    color: var(--blue);
+    font-family: var(--display);
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+  .details-intro {
+    color: var(--muted);
+  }
+  .details-form {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .details-submit {
+    justify-self: start;
+  }
+  .quiz-save-error {
+    margin-top: 1.5rem;
   }
   .question-transition {
     animation: enter 0.25s ease both;
@@ -750,6 +840,12 @@
     }
     .quiz-nav {
       margin-top: 1.5rem;
+    }
+    .details-shell {
+      width: calc(100% - 2rem);
+    }
+    .details-submit {
+      justify-self: stretch;
     }
     .quiz-nav .button {
       padding-inline: 1.1rem;

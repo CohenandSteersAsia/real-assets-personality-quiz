@@ -1,13 +1,15 @@
+import type { ParticipantDetails } from "../types/participant";
 import type { AnswersByQuestion } from "../types/quiz";
 
 export interface QuizState {
   currentQuestion: number;
   answersByQuestion: AnswersByQuestion;
   completionState: "not-started" | "in-progress" | "complete";
+  participant: ParticipantDetails | null;
 }
 
 export type QuizAction =
-  | { type: "start" }
+  | { type: "register"; participant: ParticipantDetails }
   | { type: "select"; questionId: string; answerId: string }
   | { type: "next"; questionCount: number }
   | { type: "previous" }
@@ -17,12 +19,17 @@ export const createInitialQuizState = (): QuizState => ({
   currentQuestion: 0,
   answersByQuestion: {},
   completionState: "not-started",
+  participant: null,
 });
 
 export function quizReducer(state: QuizState, action: QuizAction): QuizState {
   switch (action.type) {
-    case "start":
-      return { ...state, completionState: "in-progress" };
+    case "register":
+      return {
+        ...state,
+        participant: action.participant,
+        completionState: "in-progress",
+      };
     case "select":
       return {
         ...state,

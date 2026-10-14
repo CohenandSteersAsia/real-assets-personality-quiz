@@ -32,10 +32,25 @@ jobs:
         run: npm ci
       - name: Verify
         run: npm run format:check && npm run lint && npm run test
+      - name: Check quiz sign-up is ready to publish
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          if [ -z "$VITE_SUPABASE_URL" ] || [ -z "$VITE_SUPABASE_PUBLISHABLE_KEY" ]; then
+            echo "::error::Set the VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY repository variables (see docs/LEAD_CAPTURE.md)."
+            exit 1
+          fi
+          if grep -n "TO CONFIRM" src/data/privacyNotice.ts; then
+            echo "::error::The personal data notice still contains [TO CONFIRM] placeholders."
+            exit 1
+          fi
       - name: Build for repository path
         run: npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

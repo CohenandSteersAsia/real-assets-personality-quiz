@@ -14,9 +14,8 @@ export function LandingPage() {
   const titleParts = title.split(titleEmphasis);
   const start = () => {
     dispatch({ type: "restart" });
-    dispatch({ type: "start" });
     trackEvent("quiz_started");
-    navigate("/quiz");
+    navigate("/details");
     window.scrollTo?.(0, 0);
   };
   return (
