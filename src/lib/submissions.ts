@@ -34,8 +34,10 @@ export function buildSubmission(
     name: participant.name,
     company: participant.company,
     email: participant.email,
-    personal_data_consent: participant.personalDataConsent,
-    marketing_opt_in: participant.marketingOptIn,
+    // The form has no tick-boxes: submitting it with the notice shown is the
+    // consent record, and no marketing consent is asked for.
+    personal_data_consent: true,
+    marketing_opt_in: false,
     notice_version: noticeVersion,
     primary_result: result.primary,
     secondary_result: result.secondary,

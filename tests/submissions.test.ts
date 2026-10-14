@@ -11,8 +11,6 @@ const participant: ParticipantDetails = {
   name: "Alex Tan",
   company: "Example Pte Ltd",
   email: "alex@example.com",
-  personalDataConsent: true,
-  marketingOptIn: true,
 };
 
 const config: SubmissionConfig = {
@@ -45,13 +43,13 @@ function recordingFetch(response: Response) {
 }
 
 describe("quiz submissions", () => {
-  it("maps details, consent and result to database columns", () => {
+  it("records submission under the notice as consent, with no marketing opt-in", () => {
     expect(submission).toEqual({
       name: "Alex Tan",
       company: "Example Pte Ltd",
       email: "alex@example.com",
       personal_data_consent: true,
-      marketing_opt_in: true,
+      marketing_opt_in: false,
       notice_version: "notice-v1",
       primary_result: "infrastructure",
       secondary_result: "commodities",

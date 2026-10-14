@@ -6,8 +6,6 @@ const participant: ParticipantDetails = {
   name: "Alex Tan",
   company: "Example Pte Ltd",
   email: "alex@example.com",
-  personalDataConsent: true,
-  marketingOptIn: false,
 };
 
 describe("quiz state", () => {

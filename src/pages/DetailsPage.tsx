@@ -20,20 +20,7 @@ const TEXT_FIELDS: {
   { field: "email", type: "email", autoComplete: "email" },
 ];
 
-const FIELD_ORDER = [
-  "name",
-  "company",
-  "email",
-  "personalDataConsent",
-] as const;
-
-const emptyValues: ParticipantFormValues = {
-  name: "",
-  company: "",
-  email: "",
-  personalDataConsent: false,
-  marketingOptIn: false,
-};
+const emptyValues: ParticipantFormValues = { name: "", company: "", email: "" };
 
 export function DetailsPage() {
   const navigate = useNavigate();
@@ -43,17 +30,17 @@ export function DetailsPage() {
   );
   const [errors, setErrors] = useState<ParticipantErrors>({});
 
-  const update = <K extends keyof ParticipantFormValues>(
-    key: K,
-    value: ParticipantFormValues[K],
-  ) => setValues((current) => ({ ...current, [key]: value }));
+  const update = (field: ParticipantField, value: string) =>
+    setValues((current) => ({ ...current, [field]: value }));
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validation = validateParticipant(values);
     if (!validation.ok) {
       setErrors(validation.errors);
-      const firstInvalid = FIELD_ORDER.find((key) => validation.errors[key]);
+      const firstInvalid = TEXT_FIELDS.find(
+        ({ field }) => validation.errors[field],
+      )?.field;
       const element = firstInvalid
         ? event.currentTarget.elements.namedItem(firstInvalid)
         : null;
@@ -66,8 +53,8 @@ export function DetailsPage() {
     window.scrollTo?.(0, 0);
   };
 
-  const describedBy = (key: (typeof FIELD_ORDER)[number]) =>
-    errors[key] ? `${key}-error` : undefined;
+  const describedBy = (field: ParticipantField) =>
+    errors[field] ? `${field}-error` : undefined;
 
   return (
     <div className="page page--details">
@@ -100,44 +87,6 @@ export function DetailsPage() {
           ))}
 
           <p className="privacy-notice">{privacyNotice.notice}</p>
-
-          <div className="form-check">
-            <input
-              id="personalDataConsent"
-              name="personalDataConsent"
-              type="checkbox"
-              required
-              checked={values.personalDataConsent}
-              onChange={(event) =>
-                update("personalDataConsent", event.target.checked)
-              }
-              aria-invalid={errors.personalDataConsent ? true : undefined}
-              aria-describedby={describedBy("personalDataConsent")}
-            />
-            <label htmlFor="personalDataConsent">
-              {privacyNotice.personalDataConsent}
-            </label>
-            {errors.personalDataConsent && (
-              <p className="form-error" id="personalDataConsent-error">
-                {privacyNotice.errors[errors.personalDataConsent]}
-              </p>
-            )}
-          </div>
-
-          <div className="form-check">
-            <input
-              id="marketingOptIn"
-              name="marketingOptIn"
-              type="checkbox"
-              checked={values.marketingOptIn}
-              onChange={(event) =>
-                update("marketingOptIn", event.target.checked)
-              }
-            />
-            <label htmlFor="marketingOptIn">
-              {privacyNotice.marketingOptIn}
-            </label>
-          </div>
 
           <button type="submit" className="button details-submit">
             {privacyNotice.submit}

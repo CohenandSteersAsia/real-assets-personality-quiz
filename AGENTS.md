@@ -10,7 +10,7 @@ This repository is a public-facing financial-services marketing and education ex
 - Never invent Cohen & Steers product or fund claims, fund names, tickers, performance figures, yields, returns, allocations, endorsements, or legal language.
 - Do not scrape, imitate, or fabricate Cohen & Steers branding or corporate assets. Use replaceable neutral placeholders until approved assets are supplied.
 - Do not alter the scoring or tie-breaking methodology unless specifically instructed. Keep tie-breaking isolated and tested.
-- The quiz collects personal data (name, company, email) under the PDPA. Keep notice and consent copy in `src/data/privacyNotice.ts`; never put personal data in URLs, browser storage, analytics or logs; keep marketing consent optional and unticked; and keep the database insert-only for the public key (`supabase/schema.sql`, `docs/LEAD_CAPTURE.md`).
+- The quiz collects personal data (name, company, email) under the PDPA. Keep the compliance-approved notice in `src/data/privacyNotice.ts` and do not add consent tick-boxes without instruction; never put personal data in URLs, browser storage, analytics or logs; and keep the database insert-only for the public key (`supabase/schema.sql`, `docs/LEAD_CAPTURE.md`).
 - Preserve static GitHub Pages compatibility. Hash-based routing and Vite base-path handling must remain deployment-safe.
 - Maintain mobile-first accessibility: semantic HTML, keyboard operation, visible focus, touch targets, contrast, reduced-motion support, and no colour-only state.
 - Before considering implementation complete, run `npm run format:check`, `npm run lint`, `npm run test`, and `npm run build` and resolve failures.

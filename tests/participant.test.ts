@@ -9,8 +9,6 @@ const valid: ParticipantFormValues = {
   name: "  Alex Tan ",
   company: " Example Pte Ltd ",
   email: " alex@example.com ",
-  personalDataConsent: true,
-  marketingOptIn: false,
 };
 
 describe("participant validation", () => {
@@ -21,15 +19,8 @@ describe("participant validation", () => {
         name: "Alex Tan",
         company: "Example Pte Ltd",
         email: "alex@example.com",
-        personalDataConsent: true,
-        marketingOptIn: false,
       },
     });
-  });
-
-  it("keeps the optional marketing choice", () => {
-    const result = validateParticipant({ ...valid, marketingOptIn: true });
-    expect(result.ok && result.participant.marketingOptIn).toBe(true);
   });
 
   it("requires name, company and email", () => {
@@ -62,15 +53,6 @@ describe("participant validation", () => {
     ).toEqual({
       ok: false,
       errors: { name: "too-long", company: "too-long", email: "too-long" },
-    });
-  });
-
-  it("requires consent to the personal data notice", () => {
-    expect(
-      validateParticipant({ ...valid, personalDataConsent: false }),
-    ).toEqual({
-      ok: false,
-      errors: { personalDataConsent: "consent-required" },
     });
   });
 });

@@ -21,9 +21,6 @@ const fillDetails = async (user: User) => {
     screen.getByLabelText(privacyNotice.fields.email),
     "alex@example.com",
   );
-  await user.click(
-    screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
-  );
   await user.click(screen.getByRole("button", { name: privacyNotice.submit }));
 };
 
@@ -227,12 +224,7 @@ describe("participant details", () => {
       screen.getByRole("heading", { name: privacyNotice.heading }),
     ).toBeInTheDocument();
     expect(screen.getByText(privacyNotice.notice)).toBeInTheDocument();
-    expect(
-      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
-    ).not.toBeChecked();
-    expect(
-      screen.getByRole("checkbox", { name: privacyNotice.marketingOptIn }),
-    ).not.toBeChecked();
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
   });
 
@@ -265,13 +257,10 @@ describe("participant details", () => {
     expect(
       screen.getByLabelText(privacyNotice.fields.email),
     ).toHaveAccessibleDescription(privacyNotice.errors["invalid-email"]);
-    expect(
-      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
-    ).toHaveAccessibleDescription(privacyNotice.errors["consent-required"]);
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
   });
 
-  it("saves details, consent and result before revealing the result", async () => {
+  it("saves details and result before revealing the result", async () => {
     const fetchMock = stubDatabase(201);
     const user = userEvent.setup();
     render(<App />);
@@ -337,8 +326,5 @@ describe("participant details", () => {
 
     expect(screen.getByLabelText(privacyNotice.fields.name)).toHaveValue("");
     expect(screen.getByLabelText(privacyNotice.fields.email)).toHaveValue("");
-    expect(
-      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
-    ).not.toBeChecked();
   });
 });

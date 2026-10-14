@@ -5,21 +5,14 @@ export const PARTICIPANT_LIMITS = { name: 100, company: 150, email: 254 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export interface ParticipantFormValues {
-  name: string;
-  company: string;
-  email: string;
-  personalDataConsent: boolean;
-  marketingOptIn: boolean;
-}
+export type ParticipantFormValues = ParticipantDetails;
 
-export type ParticipantField = "name" | "company" | "email";
+export type ParticipantField = keyof ParticipantDetails;
 
-export type ParticipantErrorCode =
-  "required" | "too-long" | "invalid-email" | "consent-required";
+export type ParticipantErrorCode = "required" | "too-long" | "invalid-email";
 
 export type ParticipantErrors = Partial<
-  Record<ParticipantField | "personalDataConsent", ParticipantErrorCode>
+  Record<ParticipantField, ParticipantErrorCode>
 >;
 
 export type ParticipantValidation =
@@ -52,19 +45,7 @@ export function validateParticipant(
     const error = textError(value, field);
     if (error) errors[field] = error;
   }
-  if (!values.personalDataConsent) {
-    errors.personalDataConsent = "consent-required";
-  }
 
   if (Object.keys(errors).length > 0) return { ok: false, errors };
-  return {
-    ok: true,
-    participant: {
-      name,
-      company,
-      email,
-      personalDataConsent: true,
-      marketingOptIn: values.marketingOptIn,
-    },
-  };
+  return { ok: true, participant: { name, company, email } };
 }
