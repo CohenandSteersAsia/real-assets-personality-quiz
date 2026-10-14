@@ -31,14 +31,16 @@ npm run preview     # serve the production build locally
 
 ## Architecture
 
-- **`src/data/`** — replaceable questions, personalities, site labels, CTA, disclaimer, and artwork references.
+- **`src/data/`** — replaceable questions, personalities, site labels, CTA, disclaimer, personal data notice, and artwork references.
 - **`src/types/quiz.ts`** — stable domain IDs and content contracts.
 - **`src/lib/scoring.ts`** — generic score-map summing and result calculation.
 - **`src/lib/tieBreaker.ts`** — isolated provisional tie methodology.
-- **`src/lib/quizState.ts`** — small tested reducer for navigation and answer state.
+- **`src/lib/quizState.ts`** — small tested reducer for participant details, navigation and answer state.
+- **`src/lib/participant.ts`** and **`src/lib/submissions.ts`** — sign-up validation and the insert-only Supabase save.
 - **`src/context/QuizContext.tsx`** — client-only quiz state shared across hash routes.
 - **`src/components/`** — reusable presentation components with no marketing decisions.
-- **`src/pages/`** — landing, quiz, result, and development preview composition.
+- **`src/pages/`** — landing, details, quiz, result, and development preview composition.
+- **`supabase/schema.sql`** — database table and insert-only access rules.
 - **`public/placeholders/`** — lightweight replaceable local SVG artwork.
 - **`tests/`** — scoring, tie, state, content-integrity, and end-to-end component behavior.
 
@@ -68,6 +70,10 @@ Edit `src/data/personalities.ts`. Public names can change without changing stabl
 ### Landing, labels, sharing, and disclaimer
 
 Edit `src/data/siteContent.ts`. The disclaimer is controlled copy; do not rewrite it casually.
+
+### Personal data notice
+
+Edit `src/data/privacyNotice.ts`. The notice is compliance-approved legal copy; change it only on instruction and bump `version` whenever the wording changes. See `docs/LEAD_CAPTURE.md`.
 
 ### Artwork
 
@@ -100,10 +106,13 @@ Repository setup:
 
 1. Push this repository to GitHub.
 2. In **Settings → Pages → Build and deployment**, choose **GitHub Actions** as the source.
-3. Push to `main` or run the **Deploy to GitHub Pages** workflow manually.
+3. Add the `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` repository variables (see `docs/LEAD_CAPTURE.md`).
+4. Push to `main` or run the **Deploy to GitHub Pages** workflow manually.
+
+The deploy stops if those variables are missing, or if the tests find `[TO CONFIRM: …]` placeholders in the personal data copy.
 
 For a repository named `my-quiz`, the expected URL is `https://<owner>.github.io/my-quiz/`. Local development always uses `/`, so it does not depend on a final repository name.
 
 ## Project documentation
 
-See `docs/PRODUCT_SPEC.md`, `CONTENT_MODEL.md`, `SCORING.md`, `DESIGN.md`, `COMPLIANCE.md`, and `ACCEPTANCE_TESTS.md` for the product boundary and engineering rationale.
+See `docs/PRODUCT_SPEC.md`, `CONTENT_MODEL.md`, `SCORING.md`, `DESIGN.md`, `COMPLIANCE.md`, `LEAD_CAPTURE.md`, and `ACCEPTANCE_TESTS.md` for the product boundary and engineering rationale.
