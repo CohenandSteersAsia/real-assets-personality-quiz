@@ -8,7 +8,7 @@
 - Secondary result is deterministic and distinct from primary.
 - Quiz selection, navigation, answer changes, completion, and restart behave correctly.
 - Questions each have exactly four valid answers and all four personality configs exist.
-- The details form validates name, company and email and shows the notice with no tick-boxes; the quiz cannot be reached without details.
+- The details form validates name, company, team/department and email and shows the notice with no tick-boxes; the quiz cannot be reached without details.
 - The entry is saved before the result is revealed; a failed save keeps the visitor on the last question with a retry.
 - Restarting clears the previous visitor's details.
 - Lint, format check, tests, TypeScript compilation, and production build pass.

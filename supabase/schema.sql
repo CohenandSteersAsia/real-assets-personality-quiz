@@ -14,6 +14,8 @@ create table public.quiz_submissions (
     check (char_length(btrim(name)) between 1 and 100),
   company text not null
     check (char_length(btrim(company)) between 1 and 150),
+  department text not null
+    check (char_length(btrim(department)) between 1 and 100),
   email text not null
     check (char_length(email) <= 254 and email ~ '^[^\s@]+@[^\s@]+\.[^\s@]+$'),
   personal_data_consent boolean not null
@@ -37,6 +39,7 @@ revoke all on table public.quiz_submissions from anon, authenticated;
 grant insert (
   name,
   company,
+  department,
   email,
   personal_data_consent,
   marketing_opt_in,

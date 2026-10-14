@@ -5,6 +5,7 @@ import type { AssetClass, QuizResult } from "../types/quiz";
 export interface QuizSubmission {
   name: string;
   company: string;
+  department: string;
   email: string;
   personal_data_consent: true;
   marketing_opt_in: boolean;
@@ -33,6 +34,7 @@ export function buildSubmission(
   return {
     name: participant.name,
     company: participant.company,
+    department: participant.department,
     email: participant.email,
     // The form has no tick-boxes: submitting it with the notice shown is the
     // consent record, and no marketing consent is asked for.

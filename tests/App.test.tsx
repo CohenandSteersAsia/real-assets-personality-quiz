@@ -18,6 +18,10 @@ const fillDetails = async (user: User) => {
     "Example Pte Ltd",
   );
   await user.type(
+    screen.getByLabelText(privacyNotice.fields.department),
+    "Wealth Solutions",
+  );
+  await user.type(
     screen.getByLabelText(privacyNotice.fields.email),
     "alex@example.com",
   );
@@ -225,6 +229,9 @@ describe("participant details", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(privacyNotice.notice)).toBeInTheDocument();
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+    expect(
+      screen.getAllByRole("textbox").map((field) => field.getAttribute("id")),
+    ).toEqual(["name", "company", "department", "email"]);
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
   });
 
@@ -255,6 +262,9 @@ describe("participant details", () => {
     expect(name).toHaveFocus();
     expect(name).toHaveAccessibleDescription(privacyNotice.errors.required);
     expect(
+      screen.getByLabelText(privacyNotice.fields.department),
+    ).toHaveAccessibleDescription(privacyNotice.errors.required);
+    expect(
       screen.getByLabelText(privacyNotice.fields.email),
     ).toHaveAccessibleDescription(privacyNotice.errors["invalid-email"]);
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
@@ -277,6 +287,7 @@ describe("participant details", () => {
     expect(JSON.parse(String(init.body))).toEqual({
       name: "Alex Tan",
       company: "Example Pte Ltd",
+      department: "Wealth Solutions",
       email: "alex@example.com",
       personal_data_consent: true,
       marketing_opt_in: false,
@@ -324,7 +335,8 @@ describe("participant details", () => {
       screen.getByRole("button", { name: siteContent.landing.cta }),
     );
 
-    expect(screen.getByLabelText(privacyNotice.fields.name)).toHaveValue("");
-    expect(screen.getByLabelText(privacyNotice.fields.email)).toHaveValue("");
+    for (const label of Object.values(privacyNotice.fields)) {
+      expect(screen.getByLabelText(label)).toHaveValue("");
+    }
   });
 });

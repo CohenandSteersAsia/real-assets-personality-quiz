@@ -5,6 +5,7 @@ import type { ParticipantDetails } from "../src/types/participant";
 const participant: ParticipantDetails = {
   name: "Alex Tan",
   company: "Example Pte Ltd",
+  department: "Wealth Solutions",
   email: "alex@example.com",
 };
 

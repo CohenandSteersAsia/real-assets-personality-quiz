@@ -3,12 +3,13 @@
 // it. Change `version` whenever the notice or form changes, so each saved
 // entry records which notice the visitor saw.
 export const privacyNotice = {
-  version: "2026-10-14-v3",
+  version: "2026-10-14-v4",
   heading: "Before you start",
   introduction: "Tell us a little about yourself, then discover your result.",
   fields: {
     name: "Name",
     company: "Company",
+    department: "Team / department",
     email: "Email address",
   },
   notice:

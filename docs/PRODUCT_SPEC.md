@@ -8,7 +8,7 @@ Build a polished, public personality quiz that playfully connects a user's answe
 
 Landing → introduction → eight data-driven questions → calculated result → primary and optional secondary personality → asset-class education → configurable CTA → sharing → retake.
 
-Before the questions, visitors give their name, company and email address beneath a PDPA personal data notice. Their details and result are saved to a Singapore-hosted Supabase database when the result is revealed; see `LEAD_CAPTURE.md`. There is no login or authentication. Quiz content is actively being refined and is not final approved marketing material.
+Before the questions, visitors give their name, company, team/department and email address beneath a PDPA personal data notice. Their details and result are saved to a Singapore-hosted Supabase database when the result is revealed; see `LEAD_CAPTURE.md`. There is no login or authentication. Quiz content is actively being refined and is not final approved marketing material.
 
 ## Acceptance baseline
 

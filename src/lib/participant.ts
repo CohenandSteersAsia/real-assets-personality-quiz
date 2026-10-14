@@ -1,7 +1,12 @@
 import type { ParticipantDetails } from "../types/participant";
 
 // Mirrors the check constraints in supabase/schema.sql.
-export const PARTICIPANT_LIMITS = { name: 100, company: 150, email: 254 };
+export const PARTICIPANT_LIMITS = {
+  name: 100,
+  company: 150,
+  department: 100,
+  email: 254,
+};
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,12 +39,14 @@ export function validateParticipant(
 ): ParticipantValidation {
   const name = values.name.trim();
   const company = values.company.trim();
+  const department = values.department.trim();
   const email = values.email.trim();
   const errors: ParticipantErrors = {};
 
   for (const [field, value] of [
     ["name", name],
     ["company", company],
+    ["department", department],
     ["email", email],
   ] as const) {
     const error = textError(value, field);
@@ -47,5 +54,5 @@ export function validateParticipant(
   }
 
   if (Object.keys(errors).length > 0) return { ok: false, errors };
-  return { ok: true, participant: { name, company, email } };
+  return { ok: true, participant: { name, company, department, email } };
 }

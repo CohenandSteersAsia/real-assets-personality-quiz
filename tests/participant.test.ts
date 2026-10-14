@@ -8,6 +8,7 @@ import {
 const valid: ParticipantFormValues = {
   name: "  Alex Tan ",
   company: " Example Pte Ltd ",
+  department: " Wealth Solutions ",
   email: " alex@example.com ",
 };
 
@@ -18,17 +19,28 @@ describe("participant validation", () => {
       participant: {
         name: "Alex Tan",
         company: "Example Pte Ltd",
+        department: "Wealth Solutions",
         email: "alex@example.com",
       },
     });
   });
 
-  it("requires name, company and email", () => {
+  it("requires name, company, team/department and email", () => {
     expect(
-      validateParticipant({ ...valid, name: " ", company: "", email: "" }),
+      validateParticipant({
+        name: " ",
+        company: "",
+        department: "  ",
+        email: "",
+      }),
     ).toEqual({
       ok: false,
-      errors: { name: "required", company: "required", email: "required" },
+      errors: {
+        name: "required",
+        company: "required",
+        department: "required",
+        email: "required",
+      },
     });
   });
 
@@ -48,11 +60,17 @@ describe("participant validation", () => {
         ...valid,
         name: "a".repeat(PARTICIPANT_LIMITS.name + 1),
         company: "a".repeat(PARTICIPANT_LIMITS.company + 1),
+        department: "a".repeat(PARTICIPANT_LIMITS.department + 1),
         email: `${"a".repeat(PARTICIPANT_LIMITS.email)}@example.com`,
       }),
     ).toEqual({
       ok: false,
-      errors: { name: "too-long", company: "too-long", email: "too-long" },
+      errors: {
+        name: "too-long",
+        company: "too-long",
+        department: "too-long",
+        email: "too-long",
+      },
     });
   });
 });

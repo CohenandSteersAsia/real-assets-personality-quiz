@@ -10,6 +10,7 @@ import type { ParticipantDetails } from "../src/types/participant";
 const participant: ParticipantDetails = {
   name: "Alex Tan",
   company: "Example Pte Ltd",
+  department: "Wealth Solutions",
   email: "alex@example.com",
 };
 
@@ -47,6 +48,7 @@ describe("quiz submissions", () => {
     expect(submission).toEqual({
       name: "Alex Tan",
       company: "Example Pte Ltd",
+      department: "Wealth Solutions",
       email: "alex@example.com",
       personal_data_consent: true,
       marketing_opt_in: false,

@@ -1,10 +1,10 @@
 # Quiz sign-up (lead capture)
 
-Visitors give their name, company and email address before taking the quiz. When they reveal their result, one row is saved to a Supabase (Postgres) database hosted in Singapore. The site stays a static GitHub Pages app: the browser writes directly to Supabase with a public, insert-only key.
+Visitors give their name, company, team/department and email address before taking the quiz. When they reveal their result, one row is saved to a Supabase (Postgres) database hosted in Singapore. The site stays a static GitHub Pages app: the browser writes directly to Supabase with a public, insert-only key.
 
 ## Journey
 
-Landing → **details form** (name, company, email and the personal data notice; no tick-boxes) → six questions → **save** → result.
+Landing → **details form** (name, company, team/department, email and the personal data notice; no tick-boxes) → six questions → **save** → result.
 
 - Details are required. `#/quiz` redirects to `#/details` when no details are held.
 - Nothing is saved until the visitor presses **Reveal my result**. The row includes their details, the notice version they saw, and their primary and secondary result.
@@ -28,6 +28,9 @@ Landing → **details form** (name, company, email and the personal data notice;
 
 1. Create a Supabase project under a **Cohen & Steers-owned** organisation (not a personal account). Choose the region **Southeast Asia (Singapore)** so data stays in Singapore. Turn on multi-factor authentication for everyone with dashboard access.
 2. Open **SQL Editor**, paste `supabase/schema.sql`, and run it.
+
+   For an existing project, run any newer scripts in `supabase/migrations/` instead, oldest first, **before** deploying the code that needs them. `2026-10-14-add-department.sql` adds the team/department column; rows saved before it keep an empty department.
+
 3. Open **Project Settings → API Keys** and copy the **project URL** and the **publishable key** (`sb_publishable_…`; on older projects, the `anon` key). Never use the secret or `service_role` key in this app.
 4. In the GitHub repository that deploys the site, open **Settings → Secrets and variables → Actions → Variables** and add:
    - `VITE_SUPABASE_URL` — the project URL

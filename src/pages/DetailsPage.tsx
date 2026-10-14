@@ -13,14 +13,20 @@ import {
 const TEXT_FIELDS: {
   field: ParticipantField;
   type: "text" | "email";
-  autoComplete: string;
+  autoComplete?: string;
 }[] = [
   { field: "name", type: "text", autoComplete: "name" },
   { field: "company", type: "text", autoComplete: "organization" },
+  { field: "department", type: "text" },
   { field: "email", type: "email", autoComplete: "email" },
 ];
 
-const emptyValues: ParticipantFormValues = { name: "", company: "", email: "" };
+const emptyValues: ParticipantFormValues = {
+  name: "",
+  company: "",
+  department: "",
+  email: "",
+};
 
 export function DetailsPage() {
   const navigate = useNavigate();
