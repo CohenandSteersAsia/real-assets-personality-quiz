@@ -99,20 +99,7 @@ export function DetailsPage() {
             </div>
           ))}
 
-          <section className="privacy-notice" aria-labelledby="notice-title">
-            <h2 id="notice-title">{privacyNotice.noticeTitle}</h2>
-            {privacyNotice.noticeBody.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <a
-              className="text-link"
-              href={privacyNotice.privacyPolicy.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {privacyNotice.privacyPolicy.label}
-            </a>
-          </section>
+          <p className="privacy-notice">{privacyNotice.notice}</p>
 
           <div className="form-check">
             <input

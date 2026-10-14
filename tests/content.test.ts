@@ -1,10 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { personalities } from "../src/data/personalities";
+import { privacyNotice } from "../src/data/privacyNotice";
 import { questions } from "../src/data/questions";
 import { siteContent } from "../src/data/siteContent";
 import { ASSET_CLASSES } from "../src/types/quiz";
 
 describe("content integrity", () => {
+  it("uses the compliance-approved personal data notice verbatim", () => {
+    expect(privacyNotice.notice).toBe(
+      "All data collected through this survey is for internal use only and will be managed in accordance with the Personal Data Protection Act (PDPA).",
+    );
+  });
+
+  // The deploy workflow runs these tests, so placeholders can never go live.
+  it("has no unconfirmed placeholders in the personal data copy", () => {
+    expect(JSON.stringify(privacyNotice)).not.toContain("[TO CONFIRM");
+  });
+
   it("provides the approved landing copy without a time promise", () => {
     expect(siteContent.landing).toMatchObject({
       title: "What’s your REAL assets personality?",

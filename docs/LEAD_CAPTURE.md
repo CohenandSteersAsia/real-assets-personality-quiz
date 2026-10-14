@@ -62,12 +62,11 @@ For local development, put the same two values in `.env.local` (ignored by git).
 
 ## PDPA checklist
 
-The notice follows the PDPC _Guide to Notification_: state what is collected and why, get consent through a positive action (no pre-ticked boxes), keep marketing consent separate and optional, and explain how to withdraw consent and who to contact.
+The notice is compliance's approved wording (2026-10-14). Following the PDPC _Guide to Notification_, the form gets consent through a positive action (an unticked, required box) and keeps marketing consent separate and optional.
 
-Before launch, Cohen & Steers legal/compliance must:
-
-- [ ] Review and approve the wording in `src/data/privacyNotice.ts`.
-- [ ] Replace every `[TO CONFIRM: …]` value: legal entity, purposes, retention period, data protection officer email and privacy policy URL. **The deploy workflow refuses to publish while any remain.**
+- [x] Compliance approved the notice wording in `src/data/privacyNotice.ts` (2026-10-14).
+- [x] No `[TO CONFIRM: …]` placeholders remain. A content test fails if one is added, and the deploy runs the tests, so a placeholder can never go live.
+- [ ] Compliance to confirm the two tick-box labels: the required consent box (names "Cohen & Steers") and the optional marketing box.
 - [ ] Confirm that requiring details to take the quiz is acceptable under PDPA section 14(2)(a) (consent may not be required beyond what is reasonable to provide the service).
 - [ ] Bump `privacyNotice.version` whenever the notice or consent wording changes.
 - [ ] Agree on the retention period and schedule deletion.

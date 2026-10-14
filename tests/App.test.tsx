@@ -225,9 +225,10 @@ describe("participant details", () => {
     expect(
       screen.getByRole("heading", { name: privacyNotice.heading }),
     ).toBeInTheDocument();
-    for (const paragraph of privacyNotice.noticeBody) {
-      expect(screen.getByText(paragraph)).toBeInTheDocument();
-    }
+    expect(screen.getByText(privacyNotice.notice)).toBeInTheDocument();
+    expect(
+      screen.getByRole("checkbox", { name: privacyNotice.personalDataConsent }),
+    ).not.toBeChecked();
     expect(
       screen.getByRole("checkbox", { name: privacyNotice.marketingOptIn }),
     ).not.toBeChecked();

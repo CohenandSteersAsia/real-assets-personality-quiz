@@ -1,9 +1,8 @@
-// DRAFT LEGAL COPY: requires Cohen & Steers legal/compliance review before launch.
-// Replace every "[TO CONFIRM: …]" value. The deploy workflow refuses to publish
-// while any remain. Change `version` whenever the notice or consent wording
-// changes, so each saved entry records which notice the visitor agreed to.
+// CONTROLLED LEGAL COPY: `notice` is the wording approved by compliance on
+// 2026-10-14. Do not rewrite it. Change `version` whenever the notice or consent
+// wording changes, so each saved entry records which notice the visitor saw.
 export const privacyNotice = {
-  version: "2026-10-14-draft",
+  version: "2026-10-14-v2",
   heading: "Before you start",
   introduction: "Tell us a little about yourself, then discover your result.",
   fields: {
@@ -11,18 +10,10 @@ export const privacyNotice = {
     company: "Company",
     email: "Email address",
   },
-  noticeTitle: "How we use your personal data",
-  noticeBody: [
-    "[TO CONFIRM: legal entity] will collect your name, company, email address and quiz result to run this quiz, record your result and contact you about it.",
-    "Your details are stored securely in Singapore, are never sold, and are kept for no longer than [TO CONFIRM: retention period].",
-    "To withdraw your consent, or to access or correct your personal data, email [TO CONFIRM: data protection officer email].",
-  ],
-  privacyPolicy: {
-    label: "Read our privacy policy",
-    href: "[TO CONFIRM: privacy policy URL]",
-  },
+  notice:
+    "All data collected through this survey is for internal use only and will be managed in accordance with the Personal Data Protection Act (PDPA).",
   personalDataConsent:
-    "I agree to [TO CONFIRM: legal entity] collecting, using and storing my personal data for the purposes above, in accordance with the Personal Data Protection Act 2012.",
+    "I agree to Cohen & Steers collecting, using and storing my personal data for the purposes above, in accordance with the Personal Data Protection Act 2012.",
   marketingOptIn:
     "Optional: send me Cohen & Steers updates about real assets by email. I can unsubscribe at any time.",
   submit: "Start the quiz",

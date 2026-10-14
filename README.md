@@ -73,7 +73,7 @@ Edit `src/data/siteContent.ts`. The disclaimer is controlled copy; do not rewrit
 
 ### Personal data notice
 
-Edit `src/data/privacyNotice.ts`. It is draft legal copy pending Cohen & Steers review; bump `version` whenever the wording changes. See `docs/LEAD_CAPTURE.md`.
+Edit `src/data/privacyNotice.ts`. The notice is compliance-approved legal copy; change it only on instruction and bump `version` whenever the wording changes. See `docs/LEAD_CAPTURE.md`.
 
 ### Artwork
 
@@ -109,7 +109,7 @@ Repository setup:
 3. Add the `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` repository variables (see `docs/LEAD_CAPTURE.md`).
 4. Push to `main` or run the **Deploy to GitHub Pages** workflow manually.
 
-The deploy stops if those variables are missing or if the personal data notice still contains `[TO CONFIRM: …]` placeholders.
+The deploy stops if those variables are missing, or if the tests find `[TO CONFIRM: …]` placeholders in the personal data copy.
 
 For a repository named `my-quiz`, the expected URL is `https://<owner>.github.io/my-quiz/`. Local development always uses `/`, so it does not depend on a final repository name.
 
